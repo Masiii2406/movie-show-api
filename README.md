@@ -1,6 +1,6 @@
 # Movies & TV Shows API
 
-A REST API server for a hand-crafted catalog of movies and TV shows, built for assignment
+A REST API server for a hand-crafted catalog of movies and TV shows, built for the
 **ITCC 14 – Build Your Own API Server Challenge**.
 
 - **Niche:** Movies and TV Shows
@@ -15,15 +15,17 @@ git clone <your-repo-url>
 cd movie-tv-api
 
 # 2. Create a virtual environment (optional but recommended)
-python3 -m venv venv
-source venv/bin/activate   # on Windows: venv\Scripts\activate
+python -m venv venv
+venv\Scripts\activate      # on Mac/Linux: source venv/bin/activate
 
 # 3. Install dependencies
 pip install -r requirements.txt
 
-# 4. Run the server (also creates and seeds movies.db on first run)
-python3 app.py
+# 4. Run the server (this also creates and seeds movies.db on first run)
+python app.py
 ```
+
+> Note: on Windows use `python`; on Mac/Linux use `python3` if `python` isn't mapped.
 
 The server starts at `http://127.0.0.1:5000`.
 
@@ -54,21 +56,21 @@ curl http://127.0.0.1:5000/titles
 [
   {
     "id": 1,
-    "title": "The Shape of Water",
-    "year": 2017,
-    "type": "movie",
-    "genre": "Fantasy/Drama",
-    "rating": 7.3,
-    "creator": "Guillermo del Toro"
+    "title": "Friends",
+    "year": 1994,
+    "type": "tv",
+    "genre": "Comedy/Romance",
+    "rating": 8.9,
+    "creator": "David Crane"
   },
   {
-    "id": 9,
-    "title": "Breaking Bad",
-    "year": 2008,
-    "type": "tv",
-    "genre": "Crime/Drama",
-    "rating": 9.5,
-    "creator": "Vince Gilligan"
+    "id": 7,
+    "title": "Good Will Hunting",
+    "year": 1997,
+    "type": "movie",
+    "genre": "Drama",
+    "rating": 8.3,
+    "creator": "Gus Van Sant"
   }
 ]
 ```
@@ -85,12 +87,12 @@ curl http://127.0.0.1:5000/titles/1
 ```json
 {
   "id": 1,
-  "title": "The Shape of Water",
-  "year": 2017,
-  "type": "movie",
-  "genre": "Fantasy/Drama",
-  "rating": 7.3,
-  "creator": "Guillermo del Toro"
+  "title": "Friends",
+  "year": 1994,
+  "type": "tv",
+  "genre": "Comedy/Romance",
+  "rating": 8.9,
+  "creator": "David Crane"
 }
 ```
 
@@ -119,7 +121,7 @@ curl -X POST http://127.0.0.1:5000/titles \
 **Sample response** — `201 Created`
 ```json
 {
-  "id": 18,
+  "id": 21,
   "title": "Dune: Part Two",
   "year": 2024,
   "type": "movie",
@@ -154,12 +156,12 @@ curl -X PUT http://127.0.0.1:5000/titles/1 \
 ```json
 {
   "id": 1,
-  "title": "The Shape of Water",
-  "year": 2017,
-  "type": "movie",
-  "genre": "Fantasy/Drama",
-  "rating": 7.5,
-  "creator": "Guillermo del Toro"
+  "title": "Friends",
+  "year": 1994,
+  "type": "tv",
+  "genre": "Comedy/Romance",
+  "rating": 9.0,
+  "creator": "David Crane"
 }
 ```
 
@@ -208,9 +210,27 @@ movie-tv-api/
 
 ## Live Deployment (optional bonus)
 
-If deployed, the live base URL is: `<add your Render/Railway URL here>`
+If deployed, the live base URL is: `<add your Render URL here after deploying>`
+
+### Deploying to Render (free tier)
+
+1. Push this repo to GitHub (already done if you're reading this on GitHub).
+2. Go to [render.com](https://render.com) and sign up / log in (you can sign in with GitHub).
+3. Click **New +** → **Web Service**.
+4. Connect your GitHub account and select this repository.
+5. Fill in:
+   - **Name:** anything, e.g. `movie-tv-api`
+   - **Runtime:** Python 3
+   - **Build Command:** `pip install -r requirements.txt`
+   - **Start Command:** `gunicorn app:app`
+   - **Instance Type:** Free
+6. Click **Create Web Service**. Render will build and deploy — this takes a couple of minutes.
+7. Once it's live, Render gives you a URL like `https://movie-tv-api-xxxx.onrender.com`.
 
 Example against the live link:
 ```bash
-curl <your-live-url>/titles
+curl https://<your-app-name>.onrender.com/titles
 ```
+
+> Note: Render's free tier spins the service down after inactivity, so the first
+> request after a while may take 30-60 seconds to respond while it wakes up.
