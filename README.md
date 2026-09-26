@@ -1,11 +1,11 @@
 # Movies & TV Shows API
 
-A REST API server for a hand-crafted catalog of movies and TV shows, built for the
+A REST API server for a hand-crafted catalog of movies and TV shows, built for assignment
 **ITCC 14 – Build Your Own API Server Challenge**.
 
 - **Niche:** Movies and TV Shows
 - **Stack:** Flask (Python) + SQLite
-- **Data:** 20 hand-crafted movies/TV shows (title, year, type, genre, rating, creator)
+- **Data:** 20  movies/TV shows (title, year, type, genre, rating, creator)
 
 ## Setup
 
@@ -210,7 +210,7 @@ movie-tv-api/
 
 ## Live Deployment (optional bonus)
 
-If deployed, the live base URL is: `<add your Render URL here after deploying>`
+**Live URL:** https://movie-show-api.onrender.com
 
 ### Deploying to Render (free tier)
 
@@ -229,8 +229,7 @@ If deployed, the live base URL is: `<add your Render URL here after deploying>`
 
 Example against the live link:
 ```bash
-curl https://<your-app-name>.onrender.com/titles
+curl https://movie-show-api.onrender.com/titles
 ```
 
-> Note: Render's free tier spins the service down after inactivity, so the first
-> request after a while may take 30-60 seconds to respond while it wakes up.
+
