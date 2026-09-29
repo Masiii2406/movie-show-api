@@ -1,58 +1,207 @@
-# Movies & TV Shows API
+Movies & TV Shows API + Frontend
 
-A REST API server for a hand-crafted catalog of movies and TV shows, built for assignment
-**ITCC 14 – Build Your Own API Server Challenge**.
+A full-stack Movies & TV Shows application built for ITCC 14. The project contains a Flask REST API backend, SQLite database, and a plain HTML/CSS/JavaScript frontend.
 
-- **Niche:** Movies and TV Shows
-- **Stack:** Flask (Python) + SQLite
-- **Data:** 20  movies/TV shows (title, year, type, genre, rating, creator)
+Niche: Movies and TV Shows
 
-## Setup
+Backend: Flask (Python) + SQLite
 
-```bash
-# 1. Clone the repo
+Frontend: HTML + CSS + JavaScript
+
+Frontend communication: JavaScript Fetch API
+
+CORS: Flask-CORS
+
+Data: Movies and TV shows with title, year, type, genre, rating, and creator
+
+Features
+API
+
+List all movies and TV shows
+
+View a single title by ID
+
+Create a new title
+
+Edit an existing title
+
+Delete a title
+
+Validate required fields
+
+Return appropriate HTTP status codes
+
+Store data in SQLite
+
+Frontend
+
+The frontend provides a user interface for all API operations:
+
+View all titles
+
+View individual title details
+
+Add a new movie or TV show
+
+Edit an existing title
+
+Delete a title
+
+Display validation errors
+
+Handle 404 errors
+
+Display loading states
+
+Communicate with the Flask API using the Fetch API
+
+Nostalgic old-theatre inspired design
+
+Project Structure
+movie-show-api/
+│
+├── app.py
+├── requirements.txt
+├── README.md
+├── .gitignore
+├── movies.db
+│
+├── frontend/
+│   ├── index.html
+│   ├── style.css
+│   └── app.js
+│
+└── venv/
+
+Backend Setup
+Requirements
+
+Python 3
+
+Git
+
+A web browser
+
+1. Clone the repository
 git clone <your-repo-url>
-cd movie-tv-api
+cd movie-show-api
 
-# 2. Create a virtual environment (optional but recommended)
-python -m venv venv
-venv\Scripts\activate      # on Mac/Linux: source venv/bin/activate
+2. Create a virtual environment
 
-# 3. Install dependencies
+On Windows:
+
+py -m venv venv
+venv\Scripts\activate
+
+
+On Mac/Linux:
+
+python3 -m venv venv
+source venv/bin/activate
+
+3. Install dependencies
 pip install -r requirements.txt
 
-# 4. Run the server (this also creates and seeds movies.db on first run)
+
+The project uses Flask and Gunicorn. Flask-CORS is also required for browser access to the API.
+
+If Flask-CORS is not installed, run:
+
+pip install flask-cors
+
+4. Run the server
 python app.py
-```
 
-> Note: on Windows use `python`; on Mac/Linux use `python3` if `python` isn't mapped.
 
-The server starts at `http://127.0.0.1:5000`.
+The server starts at:
 
-## Data Model
+http://127.0.0.1:5000
 
-| Field   | Type    | Required | Notes                                  |
-|---------|---------|----------|-----------------------------------------|
-| id      | integer | auto     | assigned by the server                  |
-| title   | string  | yes      | name of the movie/show                  |
-| year    | integer | yes      | release year (or season year)           |
-| type    | string  | yes      | must be `"movie"` or `"tv"`              |
-| genre   | string  | yes      | e.g. `"Sci-Fi/Drama"`                    |
-| rating  | number  | no       | e.g. IMDb-style rating out of 10         |
-| creator | string  | no       | director (movie) or showrunner (tv)      |
 
-## Endpoints
+Keep this terminal window running while using the frontend.
 
-### `GET /titles`
+You can test the API by opening:
+
+http://127.0.0.1:5000/
+
+
+or:
+
+http://127.0.0.1:5000/titles
+
+
+The database is created and seeded automatically when the application is first run.
+
+Frontend Setup
+
+The frontend is located inside the frontend folder.
+
+frontend/
+├── index.html
+├── style.css
+└── app.js
+
+Running the frontend
+
+With the Flask backend running, open:
+
+frontend/index.html
+
+
+in a web browser.
+
+On Windows, you can open the folder with:
+
+explorer C:\Users\XU\movie-show-api\frontend
+
+
+Then double-click index.html.
+
+The frontend connects to:
+
+http://127.0.0.1:5000
+
+
+Make sure the Flask server is running before using the frontend.
+
+CORS
+
+The backend enables CORS using Flask-CORS so that the browser frontend can communicate with the Flask API.
+
+The Flask application includes:
+
+from flask_cors import CORS
+
+
+and:
+
+app = Flask(__name__)
+CORS(app)
+
+
+This allows the frontend to make requests to the API from the browser.
+
+Data Model
+Field	Type	Required	Notes
+id	integer	auto	Assigned by the server
+title	string	yes	Name of the movie/show
+year	integer	yes	Release year
+type	string	yes	Must be movie or tv
+genre	string	yes	Example: Sci-Fi/Drama
+rating	number	no	Rating out of 10
+creator	string	no	Director or showrunner
+API Endpoints
+GET /titles
+
 Returns the full list of titles.
 
-**Sample request**
-```bash
-curl http://127.0.0.1:5000/titles
-```
+Example:
 
-**Sample response** — `200 OK`
-```json
+curl http://127.0.0.1:5000/titles
+
+
+Response:
+
 [
   {
     "id": 1,
@@ -62,29 +211,20 @@ curl http://127.0.0.1:5000/titles
     "genre": "Comedy/Romance",
     "rating": 8.9,
     "creator": "David Crane"
-  },
-  {
-    "id": 7,
-    "title": "Good Will Hunting",
-    "year": 1997,
-    "type": "movie",
-    "genre": "Drama",
-    "rating": 8.3,
-    "creator": "Gus Van Sant"
   }
 ]
-```
 
-### `GET /titles/:id`
-Returns a single title by id.
+GET /titles/:id
 
-**Sample request**
-```bash
+Returns a single title by ID.
+
+Example:
+
 curl http://127.0.0.1:5000/titles/1
-```
 
-**Sample response** — `200 OK`
-```json
+
+Response:
+
 {
   "id": 1,
   "title": "Friends",
@@ -94,32 +234,43 @@ curl http://127.0.0.1:5000/titles/1
   "rating": 8.9,
   "creator": "David Crane"
 }
-```
 
-**Not found** — `404 Not Found`
-```json
-{ "error": "Title with id 999 not found." }
-```
+Not found
 
-### `POST /titles`
-Creates a new title. Required fields: `title`, `year`, `type`, `genre`.
+If the ID does not exist:
 
-**Sample request**
-```bash
-curl -X POST http://127.0.0.1:5000/titles \
-  -H "Content-Type: application/json" \
-  -d '{
-        "title": "Dune: Part Two",
-        "year": 2024,
-        "type": "movie",
-        "genre": "Sci-Fi/Adventure",
-        "rating": 8.5,
-        "creator": "Denis Villeneuve"
-      }'
-```
+{
+  "error": "Title with id 999 not found."
+}
 
-**Sample response** — `201 Created`
-```json
+
+The API returns:
+
+404 Not Found
+
+POST /titles
+
+Creates a new title.
+
+Required fields:
+
+title
+
+year
+
+type
+
+genre
+
+Example:
+
+curl -X POST http://127.0.0.1:5000/titles ^
+  -H "Content-Type: application/json" ^
+  -d "{\"title\":\"Dune: Part Two\",\"year\":2024,\"type\":\"movie\",\"genre\":\"Sci-Fi/Adventure\",\"rating\":8.5,\"creator\":\"Denis Villeneuve\"}"
+
+
+Response:
+
 {
   "id": 21,
   "title": "Dune: Part Two",
@@ -129,107 +280,179 @@ curl -X POST http://127.0.0.1:5000/titles \
   "rating": 8.5,
   "creator": "Denis Villeneuve"
 }
-```
 
-**Missing required field** — `400 Bad Request`
-```bash
-curl -X POST http://127.0.0.1:5000/titles \
-  -H "Content-Type: application/json" \
-  -d '{"title": "Missing Year"}'
-```
-```json
-{ "error": "Missing required field(s): year, type, genre" }
-```
 
-### `PUT /titles/:id`
-Updates an existing title. Any subset of fields can be sent; only the fields
-included in the body are changed.
+Status:
 
-**Sample request**
-```bash
-curl -X PUT http://127.0.0.1:5000/titles/1 \
-  -H "Content-Type: application/json" \
-  -d '{"rating": 7.5}'
-```
+201 Created
 
-**Sample response** — `200 OK`
-```json
+Validation error
+
+If required fields are missing, the API returns:
+
+400 Bad Request
+
+
+Example:
+
 {
-  "id": 1,
-  "title": "Friends",
-  "year": 1994,
-  "type": "tv",
-  "genre": "Comedy/Romance",
-  "rating": 9.0,
-  "creator": "David Crane"
+  "error": "Missing required field(s): year, type, genre"
 }
-```
 
-**Not found** — `404 Not Found`
-```json
-{ "error": "Title with id 999 not found." }
-```
 
-### `DELETE /titles/:id`
-Deletes a title by id.
+The frontend displays this validation message to the user.
 
-**Sample request**
-```bash
+PUT /titles/:id
+
+Updates an existing title.
+
+Example:
+
+curl -X PUT http://127.0.0.1:5000/titles/1 ^
+  -H "Content-Type: application/json" ^
+  -d "{\"rating\":7.5}"
+
+
+Only the supplied fields are changed.
+
+DELETE /titles/:id
+
+Deletes a title.
+
+Example:
+
 curl -X DELETE http://127.0.0.1:5000/titles/2
-```
-
-**Sample response** — `200 OK`
-```json
-{ "message": "Title with id 2 deleted." }
-```
-
-**Not found** — `404 Not Found`
-```json
-{ "error": "Title with id 999 not found." }
-```
-
-## Status Codes Used
-
-| Code | Meaning                                              |
-|------|-------------------------------------------------------|
-| 200  | Successful GET, PUT, or DELETE                        |
-| 201  | Successful POST (resource created)                    |
-| 400  | Bad request — missing/invalid required field          |
-| 404  | Resource not found                                    |
-
-## Project Structure
-
-```
-movie-tv-api/
-├── app.py            # Flask app, routes, validation, SQLite setup
-├── requirements.txt  # Python dependencies
-├── README.md
-├── .gitignore
-└── movies.db          # created automatically on first run (not committed)
-```
-
-## Live Deployment (optional bonus)
-
-**Live URL:** https://movie-show-api.onrender.com
-
-### Deploying to Render (free tier)
-
-1. Push this repo to GitHub (already done if you're reading this on GitHub).
-2. Go to [render.com](https://render.com) and sign up / log in (you can sign in with GitHub).
-3. Click **New +** → **Web Service**.
-4. Connect your GitHub account and select this repository.
-5. Fill in:
-   - **Name:** anything, e.g. `movie-tv-api`
-   - **Runtime:** Python 3
-   - **Build Command:** `pip install -r requirements.txt`
-   - **Start Command:** `gunicorn app:app`
-   - **Instance Type:** Free
-6. Click **Create Web Service**. Render will build and deploy — this takes a couple of minutes.
-7. Once it's live, Render gives you a URL like `https://movie-tv-api-xxxx.onrender.com`.
-
-Example against the live link:
-```bash
-curl https://movie-show-api.onrender.com/titles
-```
 
 
+Response:
+
+{
+  "message": "Title with id 2 deleted."
+}
+
+Status Codes
+Code	Meaning
+200	Successful GET, PUT, or DELETE
+201	Successful POST
+400	Bad request or validation error
+404	Resource not found
+Frontend and Fetch API
+
+The frontend communicates with the backend using JavaScript's Fetch API.
+
+For example, the list of titles is retrieved with:
+
+const response = await fetch("http://127.0.0.1:5000/titles");
+const titles = await response.json();
+
+
+The frontend also uses Fetch API requests for:
+
+GET     /titles
+GET     /titles/:id
+POST    /titles
+PUT     /titles/:id
+DELETE  /titles/:id
+
+
+This allows the user to perform all API operations through the graphical interface instead of using curl or Postman.
+
+Error and Loading States
+
+The frontend handles several API states:
+
+Loading while titles are being retrieved
+
+Empty library when no titles exist
+
+Validation errors from the API
+
+404 errors when a title cannot be found
+
+Connection errors when the Flask server is not running
+
+Success messages after adding, editing, or deleting a title
+
+Design
+
+The frontend uses a nostalgic old movie theatre visual theme inspired by classic cinema.
+
+The interface uses theatrical colors, typography, borders, and styling while keeping the application usable without requiring movie poster images.
+
+Running the Complete Application
+1. Start the backend
+
+Open Command Prompt:
+
+cd C:\Users\XU\movie-show-api
+
+
+Activate the virtual environment:
+
+venv\Scripts\activate
+
+
+Start Flask:
+
+python app.py
+
+
+Leave this terminal running.
+
+2. Open the frontend
+
+Open another Command Prompt or File Explorer and navigate to:
+
+C:\Users\XU\movie-show-api\frontend
+
+
+Open:
+
+index.html
+
+
+in your browser.
+
+3. Use the application
+
+The frontend allows you to:
+
+View all movies and TV shows
+
+View details for an individual title
+
+Add a new title
+
+Edit a title
+
+Delete a title
+
+Trigger and view validation errors
+
+Technologies Used
+
+Python
+
+Flask
+
+Flask-CORS
+
+SQLite
+
+HTML
+
+CSS
+
+JavaScript
+
+Fetch API
+
+Git
+
+GitHub
+
+ITCC 14
+
+This project was created as part of the ITCC 14 API Server and Frontend Lab.
+
+The frontend extends the original REST API by providing a graphical interface for all CRUD operations.

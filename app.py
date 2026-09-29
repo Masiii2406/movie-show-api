@@ -1,10 +1,12 @@
 from flask import Flask, request, jsonify, g
+from flask_cors import CORS
 import sqlite3
 import os
 
 DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "movies.db")
 
 app = Flask(__name__)
+CORS(app)
 
 REQUIRED_FIELDS = ["title", "year", "type", "genre"]
 

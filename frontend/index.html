@@ -1,0 +1,151 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Movies & TV Shows</title> <link rel="stylesheet" href="style.css"> </head> <body>
+<header class="hero">
+    <div class="container">
+        <p class="eyebrow">Movie & TV Shows API</p>
+        <h1>My Watch Library</h1>
+        <p class="subtitle">
+            Browse, add, edit, and remove movies and TV shows.
+        </p>
+    </div>
+</header>
+
+<main class="container">
+
+    <div id="message" class="message hidden"></div>
+
+    <section class="toolbar">
+        <div>
+            <h2>Library</h2>
+            <p id="item-count" class="muted">Loading titles...</p>
+        </div>
+
+        <button id="add-button" class="button primary">
+            + Add Title
+        </button>
+    </section>
+
+    <section id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>Loading titles...</p>
+    </section>
+
+    <section id="empty-state" class="empty hidden">
+        <h3>No titles found</h3>
+        <p>Your library is empty. Add your first movie or TV show.</p>
+    </section>
+
+    <section id="titles-grid" class="titles-grid"></section>
+
+    <section id="detail-section" class="panel hidden">
+        <div class="panel-header">
+            <div>
+                <p class="eyebrow">Title Details</p>
+                <h2 id="detail-title"></h2>
+            </div>
+            <button id="close-detail" class="icon-button">×</button>
+        </div>
+
+        <div id="detail-content" class="detail-grid"></div>
+    </section>
+
+    <section id="form-section" class="panel hidden">
+        <div class="panel-header">
+            <div>
+                <p class="eyebrow" id="form-eyebrow">New Title</p>
+                <h2 id="form-heading">Add a Title</h2>
+            </div>
+            <button id="cancel-form" class="icon-button">×</button>
+        </div>
+
+        <form id="title-form">
+
+            <div class="form-grid">
+
+                <div class="form-group full">
+                    <label for="title">Title *</label>
+                    <input
+                        id="title"
+                        name="title"
+                        type="text"
+                        placeholder="e.g. Inception"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="year">Year *</label>
+                    <input
+                        id="year"
+                        name="year"
+                        type="number"
+                        placeholder="e.g. 2010"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="type">Type *</label>
+                    <select id="type" name="type">
+                        <option value="">Select type</option>
+                        <option value="movie">Movie</option>
+                        <option value="tv">TV Show</option>
+                    </select>
+                </div>
+
+                <div class="form-group full">
+                    <label for="genre">Genre *</label>
+                    <input
+                        id="genre"
+                        name="genre"
+                        type="text"
+                        placeholder="e.g. Action/Sci-Fi"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="rating">Rating</label>
+                    <input
+                        id="rating"
+                        name="rating"
+                        type="number"
+                        step="0.1"
+                        min="0"
+                        max="10"
+                        placeholder="e.g. 8.5"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="creator">Creator</label>
+                    <input
+                        id="creator"
+                        name="creator"
+                        type="text"
+                        placeholder="e.g. Christopher Nolan"
+                    >
+                </div>
+
+            </div>
+
+            <div id="form-error" class="form-error hidden"></div>
+
+            <div class="form-actions">
+                <button type="button" id="cancel-form-button" class="button secondary">
+                    Cancel
+                </button>
+
+                <button type="submit" id="submit-button" class="button primary">
+                    Add Title
+                </button>
+            </div>
+
+        </form>
+    </section>
+
+</main>
+
+<footer>
+    <p>Movies & TV Shows API • ITCC 14 Lab</p>
+</footer>
+
+<script src="app.js"></script>
+
+</body> </html>
